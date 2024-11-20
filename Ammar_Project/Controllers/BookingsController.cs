@@ -1,10 +1,12 @@
 ﻿using Ammar_Project.Data;
 using Ammar_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ammar_Project.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/{action}")]
     [ApiController]
     public class BookingsController : ControllerBase
