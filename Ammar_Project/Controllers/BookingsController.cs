@@ -18,7 +18,7 @@ namespace Ammar_Project.Controllers
             _context = context;
         }
 
-        // GET: api/Bookings
+        [Authorize(Roles = UserRoles.Admin)]
         [HttpGet]
         public IActionResult GetAll()
         {
