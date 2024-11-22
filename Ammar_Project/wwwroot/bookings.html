@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Bookings Management</h2>
+
+        <!-- Filters -->
+        <div class="mb-4">
+            <button class="btn btn-primary" id="loadBookingsBtn">Load All Bookings</button>
+            <button class="btn btn-warning" id="filterPendingBtn">Pending Bookings</button>
+            <button class="btn btn-success" id="filterApprovedBtn">Approved Bookings</button>
+            <button class="btn btn-danger" id="filterRejectedBtn">Rejected Bookings</button>
+        </div>
+
+        <!-- Bookings Table -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Facility Description</th>
+                    <th>Booking From</th>
+                    <th>Booking To</th>
+                    <th>Booked By</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="bookingsTableBody">
+                <!-- Rows will be inserted here via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script>
+        const apiBaseUrl = 'https://localhost:44304/api/bookings'; // Your API base URL
+
+        // On page load, check if user is logged in
+        document.addEventListener("DOMContentLoaded", function () {
+            const jwtToken = localStorage.getItem("jwtToken");
+            if (!jwtToken) {
+                // If not logged in, redirect to login page
+                window.location.href = "login.html";
+            } else {
+                // If logged in, load bookings and allow CRUD operations
+                loadBookings("all");
+            }
+        });
+
+
+        document.getElementById("loadBookingsBtn").addEventListener("click", () => loadBookings('all'));
+        document.getElementById("filterPendingBtn").addEventListener("click", () => loadBookings('pending'));
+        document.getElementById("filterApprovedBtn").addEventListener("click", () => loadBookings('approved'));
+        document.getElementById("filterRejectedBtn").addEventListener("click", () => loadBookings('rejected'));
+
+        // Function to get role from the JWT token
+        function getUserRole() {
+            const jwtToken = localStorage.getItem("jwtToken");
+            if (jwtToken) {
+                const payload = JSON.parse(atob(jwtToken.split('.')[1])); // Decode JWT token
+                return payload.role;  // Assuming the token contains 'role'
+            }
+            return null;
+        }
+
+        // After loading the bookings, show CRUD operations based on role
+        function loadBookings(status) {
+            const role = getUserRole(); // Get the user's role
+            fetch(`${apiBaseUrl}/GetByStatus/${status}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // Add token from localStorage
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById("bookingsTableBody");
+                    tableBody.innerHTML = ''; // Clear the table
+                    data.forEach(booking => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                    <td>${booking.bookingID}</td>
+                    <td>${booking.facilityDescription}</td>
+                    <td>${booking.bookingDateFrom}</td>
+                    <td>${booking.bookingDateTo}</td>
+                    <td>${booking.bookedBy}</td>
+                    <td>${booking.bookingStatus}</td>
+                `;
+
+                        // If user is an admin, show Edit/Delete buttons
+                        if (role === "Admin") {
+                            row.innerHTML += `
+                        <td>
+                            <button class="btn btn-warning btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    `;
+                        }
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error loading bookings:', error));
+        }
+
+    </script>
+</body>
+</html>
