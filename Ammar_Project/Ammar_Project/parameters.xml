@@ -1,0 +1,5 @@
+﻿<parameters>
+  <parameter name="IIS Web Application Name" value="Ammar_Project" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Ammar\\source\\repos\\Ammar_Project\\Ammar_Project\\obj\\Release\\net6\.0\\win-x64\\PubTmp\\Out\\$" />
+  </parameter>
+</parameters>
