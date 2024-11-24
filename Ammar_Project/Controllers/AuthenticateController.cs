@@ -132,5 +132,12 @@ namespace Ammar_Project.Controllers
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
+
+        public class RegisterModel
+        {
+            public string? Username { get; set; }
+            public string? Password { get; set; }
+            public string? Email { get; set; }
+        }
     }
 }
