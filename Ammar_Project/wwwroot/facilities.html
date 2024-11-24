@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Sports Facilities</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            border-bottom: 5px solid red;
+        }
+
+        .navbar-brand {
+            color: black !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: black !important;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: red !important;
+            }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+        /* Make navbar sticky */
+        .navbar.sticky-top {
+            position: sticky;
+            top: 0;
+            z-index: 1030; /* Ensure navbar stays above other content */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: url('images/available_sports_facilities.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+            .hero-section::after {
+                content: '';
+                background-color: rgba(0, 0, 0, 0.5);
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+            }
+
+            .hero-section h1 {
+                font-size: 3rem;
+                font-weight: bold;
+            }
+
+            .hero-section p {
+                font-size: 1.25rem;
+                font-weight: 300;
+            }
+
+        /* Facility Cards */
+        .facility-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .facility-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .facility-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .facility-card .card-body {
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+        .btn-book {
+            width: 100%;
+            color: white;
+            background-color: red;
+            border-color: red;
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-book:hover {
+                color: white;
+                background-color: #b90000;
+                border-color: #b90000;
+            }
+
+        /* Footer */
+        .footer {
+            background-color: #222;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+            .footer p {
+                margin: 0;
+                font-size: 1rem;
+            }
+
+            .footer a {
+                color: red;
+                text-decoration: none;
+            }
+
+                .footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Sport Facility Booking</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="navbar-links">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="facilities.html">Facilities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bookings.html">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" id="loginLink">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Explore Our Sports Facilities</h1>
+            <p>From tennis courts to swimming pools, find the perfect sports facility for your next activity!</p>
+        </div>
+    </section>
+
+    <!-- Available Facilities Section -->
+    <section id="facilities" class="container my-5">
+        <h2 class="text-center mb-5">Our Available Sports Facilities</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Featured Facility 1 - Tennis Court -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/tennis_court.jpg" class="card-img-top" alt="Tennis Court">
+                    <div class="card-body">
+                        <h5 class="card-title">Tennis Court</h5>
+                        <p class="card-text">Book a tennis court for your next match. Available slots throughout the day!</p>
+                        <a href="book.html?facility=Tennis%20Court" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Facility 2 - Basketball Court -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/basketball_court.jpg" class="card-img-top" alt="Basketball Court">
+                    <div class="card-body">
+                        <h5 class="card-title">Basketball Court</h5>
+                        <p class="card-text">Reserve a basketball court for your practice or game. Available for everyone!</p>
+                        <a href="book.html?facility=Basketball%20Court" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Facility 3 - Swimming Pool -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/swimming_pool.jpg" class="card-img-top" alt="Swimming Pool">
+                    <div class="card-body">
+                        <h5 class="card-title">Swimming Pool</h5>
+                        <p class="card-text">Enjoy a relaxing swim or join a swim class at our indoor pool. Book your session now!</p>
+                        <a href="book.html?facility=Swimming%20Pool" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 1 - Badminton Court -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/badminton_court.jpg" class="card-img-top" alt="Badminton Court">
+                    <div class="card-body">
+                        <h5 class="card-title">Badminton Court</h5>
+                        <p class="card-text">A great place for badminton enthusiasts to enjoy a game. Book now and get active!</p>
+                        <a href="book.html?facility=Badminton%20Court" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 2 - Football Field -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/football_field.jpg" class="card-img-top" alt="Football Field">
+                    <div class="card-body">
+                        <h5 class="card-title">Football Field</h5>
+                        <p class="card-text">Reserve the football field for your next match or practice. Book today!</p>
+                        <a href="book.html?facility=Football%20Field" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 3 - Volleyball Court -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/volleyball_court.jpg" class="card-img-top" alt="Volleyball Court">
+                    <div class="card-body">
+                        <h5 class="card-title">Volleyball Court</h5>
+                        <p class="card-text">Book a volleyball court for your next game or practice. Perfect for teams of all sizes!</p>
+                        <a href="book.html?facility=Volleyball%20Court" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 4 - Running Track -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/running_track.jpg" class="card-img-top" alt="Running Track">
+                    <div class="card-body">
+                        <h5 class="card-title">Running Track</h5>
+                        <p class="card-text">Stay in shape with a run on our professional-grade track. Book Now!</p>
+                        <a href="book.html?facility=Running%20Track" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 5 - Gymnasium -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/gymnasium.jpg" class="card-img-top" alt="Gymnasium">
+                    <div class="card-body">
+                        <h5 class="card-title">Gymnasium</h5>
+                        <p class="card-text">Fully-equipped gym for your workout sessions. Book your time slot today!</p>
+                        <a href="book.html?facility=Gymnasium" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 6 - Squash Court -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/squash_court.jpg" class="card-img-top" alt="Squash Court">
+                    <div class="card-body">
+                        <h5 class="card-title">Squash Court</h5>
+                        <p class="card-text">Enjoy a fast-paced game of squash. Book a court and challenge your friends!</p>
+                        <a href="book.html?facility=Squash%20Court" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 7 - Table Tennis -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/table_tennis.jpg" class="card-img-top" alt="Table Tennis">
+                    <div class="card-body">
+                        <h5 class="card-title">Table Tennis</h5>
+                        <p class="card-text">Perfect for a fun, fast-paced game with friends. Book a table tennis session now!</p>
+                        <a href="book.html?facility=Table%20Tennis" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 8 - Archery Range -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/archery_range.jpg" class="card-img-top" alt="Archery Range">
+                    <div class="card-body">
+                        <h5 class="card-title">Archery Range</h5>
+                        <p class="card-text">Practice your aim at our archery range. Book a session for a fun experience!</p>
+                        <a href="book.html?facility=Archery%20Range" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Facility 9 - Ice Skating Rink -->
+            <div class="col">
+                <div class="card facility-card">
+                    <img src="images/ice_skating_rink.jpg" class="card-img-top" alt="Ice Skating Rink">
+                    <div class="card-body">
+                        <h5 class="card-title">Ice Skating Rink</h5>
+                        <p class="card-text">Enjoy the ice with skating sessions for all levels. Book your time today!</p>
+                        <a href="book.html?facility=Ice%20Skating%20Rink" class="btn btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Sports Facility Booking | All rights reserved</p>
+        <p>Email: <a href="mailto:support@sportsbooking.com">support@sportsbooking.com</a> | Phone: +65 1234 5678</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        // Check if the user is logged in
+        function checkLoginStatus() {
+            const jwtToken = localStorage.getItem('jwtToken');
+            const navbarLinks = document.getElementById('navbar-links');
+
+            if (jwtToken) {
+                const loginLink = navbarLinks.querySelector('.nav-item:nth-child(4)');
+                loginLink.innerHTML = '<a class="nav-link" href="#" onclick="logout()">Logout</a>';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('jwtToken');
+            window.location.href = 'index.html';
+        }
+
+        window.onload = checkLoginStatus;
+    </script>
+</body>
+</html>

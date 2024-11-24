@@ -10,35 +10,144 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
         }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            border-bottom: 5px solid red;
+        }
+
+        .navbar-brand {
+            color: black !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: black !important;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: red !important;
+            }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+        /* Make navbar sticky */
+        .navbar.sticky-top {
+            position: sticky;
+            top: 0;
+            z-index: 1030; /* Ensure navbar stays above other content */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+        }
+
 
         /* Hero Section */
         .hero-section {
-            background: url('https://via.placeholder.com/1200x600.png?text=Sports+Facility+Booking') no-repeat center center;
+            background: url('images/sports_facility_booking.jpg') no-repeat center center;
             background-size: cover;
             color: white;
             text-align: center;
             padding: 100px 0;
+            position: relative;
+            z-index: 1;
         }
+
+            .hero-section::after {
+                content: '';
+                background-color: rgba(0, 0, 0, 0.5);
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+            }
 
             .hero-section h1 {
                 font-size: 3rem;
+                font-weight: bold;
             }
 
             .hero-section p {
                 font-size: 1.25rem;
+                font-weight: 300;
             }
+
+            .hero-section .btn-primary {
+                background-color: red;
+                border-color: red;
+                padding: 0.75rem 1.5rem;
+                font-size: 1.2rem;
+                transition: background-color 0.3s ease;
+            }
+
+                .hero-section .btn-primary:hover {
+                    background-color: #b90000;
+                    border-color: #b90000;
+                }
+
+        /* Search Bar */
+        .search-bar {
+            margin-top: 20px;
+        }
+
+            .search-bar input {
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            background-color: #f9f9f9;
+            padding: 60px 0;
+        }
+
+            .testimonial-section .testimonial {
+                background-color: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                padding: 30px;
+                text-align: center;
+            }
+
+                .testimonial-section .testimonial img {
+                    border-radius: 50%;
+                    width: 100px;
+                    height: 100px;
+                    object-fit: cover;
+                    margin-bottom: 20px;
+                }
+
+                .testimonial-section .testimonial h5 {
+                    font-size: 1.25rem;
+                    margin-bottom: 10px;
+                }
+
+                .testimonial-section .testimonial p {
+                    font-size: 1rem;
+                    color: #555;
+                    font-style: italic;
+                }
 
         /* Facility Cards */
         .facility-card {
             border: none;
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
             .facility-card:hover {
                 transform: translateY(-10px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             }
 
             .facility-card img {
@@ -49,57 +158,69 @@
 
             .facility-card .card-body {
                 text-align: center;
+                padding: 1.5rem;
             }
 
         .btn-book {
             width: 100%;
-            background-color: #0056b3;
-            border-color: #0056b3;
+            color: white;
+            background-color: red;
+            border-color: red;
             padding: 0.75rem;
             font-size: 1.1rem;
+            transition: background-color 0.3s ease;
         }
 
             .btn-book:hover {
-                background-color: #003d80;
-                border-color: #003d80;
+                color: white;
+                background-color: #b90000;
+                border-color: #b90000;
             }
 
         /* Footer */
         .footer {
-            background-color: #f8f9fa;
+            background-color: #222;
+            color: white;
             padding: 20px 0;
             text-align: center;
         }
 
             .footer p {
                 margin: 0;
+                font-size: 1rem;
             }
+
+            .footer a {
+                color: red;
+                text-decoration: none;
+            }
+
+                .footer a:hover {
+                    text-decoration: underline;
+                }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Sport Facility Booking</a>
+            <a class="navbar-brand" href="index.html">Sport Facility Booking</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto" id="navbar-links">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.html">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html" id="loginLink">Login</a>
+                        <a class="nav-link active" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="facilities.html">Facilities</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="bookings.html">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" id="loginLink">Login</a>
                     </li>
                 </ul>
             </div>
@@ -115,18 +236,86 @@
         </div>
     </section>
 
+    <!-- Search Bar -->
+    <div class="container search-bar">
+        <input type="text" placeholder="Search for facilities..." id="searchInput">
+    </div>
+
+    <!-- Featured Events or Promotions Section -->
+    <section class="container my-5">
+        <h2 class="text-center mb-4">Special Promotions</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="images/winter_discounts.jpg" class="card-img-top" alt="Winter Discounts">
+                    <div class="card-body">
+                        <h5 class="card-title">Winter Discounts</h5>
+                        <p class="card-text">Book now and save 20% on all bookings for the winter season!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="images/holiday_tournaments.jpg" class="card-img-top" alt="Holiday Tournaments">
+                    <div class="card-body">
+                        <h5 class="card-title">Holiday Tournaments</h5>
+                        <p class="card-text">Join our annual holiday tournaments and compete for prizes!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="images/free_trial_classes.jpg" class="card-img-top" alt="Free Trial Classes">
+                    <div class="card-body">
+                        <h5 class="card-title">Free Trial Classes</h5>
+                        <p class="card-text">Sign up for a free trial class and get introduced to our facilities!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Customers Are Saying</h2>
+            <div class="row">
+                <!-- Testimonial 1 -->
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <h5>John Doe</h5>
+                        <p>"The booking process was quick and easy, and the facilities were top-notch! I had a great time playing tennis."</p>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <h5>Jane Smith</h5>
+                        <p>"A seamless experience from start to finish. I highly recommend booking through this site for your next game."</p>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <h5>Sam Johnson</h5>
+                        <p>"The basketball court was perfect for our game, and the booking system made everything so simple!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Available Facilities Section -->
     <section id="facilities" class="container my-5">
-        <h2 class="text-center mb-5">Our Available Facilities</h2>
+        <h2 class="text-center mb-5">Our Popular Facilities</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <!-- Facility 1 -->
             <div class="col">
                 <div class="card facility-card">
-                    <img src="https://via.placeholder.com/400x200.png?text=Tennis+Court" class="card-img-top" alt="Tennis Court">
+                    <img src="images/tennis_court.jpg" class="card-img-top" alt="Tennis Court">
                     <div class="card-body">
                         <h5 class="card-title">Tennis Court</h5>
                         <p class="card-text">Book a tennis court for your next match. Available slots throughout the day!</p>
-                        <!-- Pass the facility name as a query parameter -->
                         <a href="book.html?facility=Tennis%20Court" class="btn btn-book">Book Now</a>
                     </div>
                 </div>
@@ -134,11 +323,10 @@
             <!-- Facility 2 -->
             <div class="col">
                 <div class="card facility-card">
-                    <img src="https://via.placeholder.com/400x200.png?text=Basketball+Court" class="card-img-top" alt="Basketball Court">
+                    <img src="images/basketball_court.jpg" class="card-img-top" alt="Basketball Court">
                     <div class="card-body">
                         <h5 class="card-title">Basketball Court</h5>
-                        <p class="card-text">Reserve a basketball court for your practice or game. Available for all skill levels!</p>
-                        <!-- Pass the facility name as a query parameter -->
+                        <p class="card-text">Reserve a basketball court for your practice or game. Available for everyone!</p>
                         <a href="book.html?facility=Basketball%20Court" class="btn btn-book">Book Now</a>
                     </div>
                 </div>
@@ -146,11 +334,10 @@
             <!-- Facility 3 -->
             <div class="col">
                 <div class="card facility-card">
-                    <img src="https://via.placeholder.com/400x200.png?text=Swimming+Pool" class="card-img-top" alt="Swimming Pool">
+                    <img src="images/swimming_pool.jpg" class="card-img-top" alt="Swimming Pool">
                     <div class="card-body">
                         <h5 class="card-title">Swimming Pool</h5>
                         <p class="card-text">Enjoy a relaxing swim or join a swim class at our indoor pool. Book your session now!</p>
-                        <!-- Pass the facility name as a query parameter -->
                         <a href="book.html?facility=Swimming%20Pool" class="btn btn-book">Book Now</a>
                     </div>
                 </div>
@@ -161,7 +348,7 @@
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2024 Sports Facility Booking | All rights reserved</p>
-        <p>Email: support@sportsbooking.com | Phone: +123-456-7890</p>
+        <p>Email: <a href="mailto:support@sportsbooking.com">support@sportsbooking.com</a> | Phone: +65 1234 5678</p>
     </footer>
 
     <!-- Bootstrap JS -->
@@ -175,20 +362,8 @@
             const navbarLinks = document.getElementById('navbar-links');
 
             if (jwtToken) {
-                // User is logged in, add Profile and Bookings links to navbar
-                const profileLink = document.createElement('li');
-                profileLink.classList.add('nav-item');
-                profileLink.innerHTML = '<a class="nav-link" href="profile.html">Profile</a>';
-
-                const bookingsLink = document.createElement('li');
-                bookingsLink.classList.add('nav-item');
-                bookingsLink.innerHTML = '<a class="nav-link" href="bookings.html">Bookings</a>';
-
-                navbarLinks.appendChild(profileLink);
-                navbarLinks.appendChild(bookingsLink);
-
                 // Change Login link to Logout
-                const loginLink = navbarLinks.querySelector('.nav-item:nth-child(3)');
+                const loginLink = navbarLinks.querySelector('.nav-item:nth-child(4)');
                 loginLink.innerHTML = '<a class="nav-link" href="#" onclick="logout()">Logout</a>';
             }
         }

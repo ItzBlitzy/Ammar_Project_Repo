@@ -21,23 +21,79 @@
 
         .btn-book {
             width: 100%;
-            background-color: #0056b3;
-            border-color: #0056b3;
+            background-color: red;
+            border-color: red;
+            color: white;
             padding: 0.75rem;
             font-size: 1.1rem;
         }
 
             .btn-book:hover {
-                background-color: #003d80;
-                border-color: #003d80;
+                background-color: #b90000;
+                border-color: #b90000;
+                color: white;
             }
 
         .alert {
             margin-top: 20px;
         }
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            border-bottom: 5px solid red;
+        }
+
+        .navbar-brand {
+            color: black !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: black !important;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: red !important;
+            }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+        /* Make navbar sticky */
+        .navbar.sticky-top {
+            position: sticky;
+            top: 0;
+            z-index: 1030; /* Ensure navbar stays above other content */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+        }
     </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Sport Facility Booking</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="navbar-links">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="facilities.html">Facilities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bookings.html">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" id="loginLink">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h2 class="text-center mb-5">Book a Facility</h2>
 
@@ -51,6 +107,15 @@
                         <option value="Tennis Court">Tennis Court</option>
                         <option value="Basketball Court">Basketball Court</option>
                         <option value="Swimming Pool">Swimming Pool</option>
+                        <option value="Badminton Court">Badminton Court</option>
+                        <option value="Football Field">Football Field</option>
+                        <option value="Volleyball Court">Volleyball Court</option>
+                        <option value="Running Track">Running Track</option>
+                        <option value="Gymnasium">Gymnasium</option>
+                        <option value="Squash Court">Squash Court</option>
+                        <option value="Table Tennis">Table Tennis</option>
+                        <option value="Archery Range">Archery Range</option>
+                        <option value="Ice Skating Rink">Ice Skating Rink</option>
                     </select>
                 </div>
 
@@ -80,6 +145,17 @@
         if (!jwtToken) {
             window.location.href = 'login.html';  // Redirect to login page if not logged in
         }
+        else {
+            const navbarLinks = document.getElementById('navbar-links');
+            const loginLink = navbarLinks.querySelector('.nav-item:nth-child(4)');
+            loginLink.innerHTML = '<a class="nav-link" href="#" onclick="logout()">Logout</a>';
+        }
+        // Logout function
+        function logout() {
+            localStorage.removeItem('jwtToken'); // Remove the JWT token
+            window.location.href = 'index.html'; // Redirect to homepage after logout
+        }
+
 
         // Get the facility name from the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
@@ -130,12 +206,18 @@
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);  // Log the response to see its structure
                     const statusDiv = document.getElementById("bookingStatus");
 
                     if (data.success) {
                         statusDiv.classList.remove('alert-danger');
                         statusDiv.classList.add('alert-success');
-                        statusDiv.innerHTML = `Booking successful! Facility: ${data.facilityDescription}, From: ${data.bookingDateFrom}, To: ${data.bookingDateTo}`;
+
+                        // Log the data properties to verify the correct ones
+                        console.log('Booking data:', data);
+
+                        // Ensure you're using the correct property names from the response
+                        statusDiv.innerHTML = `Booking successful!`;
                     } else {
                         statusDiv.classList.remove('alert-success');
                         statusDiv.classList.add('alert-danger');
@@ -143,6 +225,7 @@
                     }
                     statusDiv.style.display = 'block';  // Show the status message
                 })
+
                 .catch(error => {
                     console.error('Error booking facility:', error);
                     const statusDiv = document.getElementById("bookingStatus");

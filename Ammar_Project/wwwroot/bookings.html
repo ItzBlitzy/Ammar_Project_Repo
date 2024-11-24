@@ -3,113 +3,673 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookings</title>
+    <title>Bookings Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            border-bottom: 5px solid red;
+        }
+
+        .navbar-brand {
+            color: black !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: black !important;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: red !important;
+            }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+        /* Make navbar sticky */
+        .navbar.sticky-top {
+            position: sticky;
+            top: 0;
+            z-index: 1030; /* Ensure navbar stays above other content */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: red;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+            .hero-section h2 {
+                font-size: 3rem;
+                font-weight: 600;
+            }
+
+            .hero-section p {
+                font-size: 1.2rem;
+            }
+
+        /* Filters */
+        .filter-btn-group {
+            display: flex;
+            width: 100%; /* Make the buttons stretch across */
+            max-width: 1200px; /* Ensure it doesn’t stretch beyond the table width */
+            margin: 0 auto 20px; /* Center it with space below */
+        }
+
+            .filter-btn-group .btn {
+                flex: 1;
+                padding: 15px;
+                font-size: 16px;
+                border: none; /* Remove borders */
+                border-radius: 0; /* Reset any previous border radius */
+                margin: 0; /* Remove margin between buttons */
+            }
+
+        .btn-custom {
+            background-color: #343a40;
+            border-color: #343a40;
+            color: white;
+        }
+
+            .btn-custom:hover {
+                background-color: red;
+                border-color: red;
+                color: white;
+            }
+
+            .btn-custom.selected {
+                background-color: red;
+                border-color: red;
+            }
+
+        /* Specific border radius for each button */
+        #loadBookingsBtn {
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        #filterPendingBtn {
+            border-radius: 0px; /* All corners have no radius */
+        }
+
+        #filterApprovedBtn {
+            border-radius: 0px; /* All corners have no radius */
+        }
+
+        #filterRejectedBtn {
+            border-top-left-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+
+
+
+
+        /* Table Styles */
+        .table-responsive {
+            margin-top: 20px;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table th, .table td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #343a40;
+            color: white;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        /* Modal */
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            background-color: red;
+            color: white;
+        }
+
+        .modal-footer button {
+            border-radius: 10px;
+        }
+
+            .btn-primary {
+                background-color: red;
+                border-color: red;
+            }
+
+                .btn-primary:hover {
+                    background-color: #b90000;
+                    border-color: #b90000;
+                }
+
+        /* Custom Form Inputs */
+        .form-control {
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #222;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+            .footer p {
+                margin: 0;
+                font-size: 1rem;
+            }
+
+            .footer a {
+                color: red;
+                text-decoration: none;
+            }
+
+                .footer a:hover {
+                    text-decoration: underline;
+                }
+
+        /* Mobile-friendly design */
+        @media (max-width: 768px) {
+            .hero-section h2 {
+                font-size: 2rem;
+            }
+
+            .hero-section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Sport Facility Booking</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="navbar-links">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="facilities.html">Facilities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bookings.html">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" id="loginLink">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mt-5">
-        <h2>Bookings Management</h2>
+        <!-- Hero Section -->
+        <div class="hero-section mb-5">
+            <h2>Manage Your Bookings</h2>
+            <p>View and manage all bookings, including pending, approved, and rejected statuses.</p>
+        </div>
 
         <!-- Filters -->
-        <div class="mb-4">
-            <button class="btn btn-primary" id="loadBookingsBtn">Load All Bookings</button>
-            <button class="btn btn-warning" id="filterPendingBtn">Pending Bookings</button>
-            <button class="btn btn-success" id="filterApprovedBtn">Approved Bookings</button>
-            <button class="btn btn-danger" id="filterRejectedBtn">Rejected Bookings</button>
+        <div class="mb-4 text-center filter-btn-group">
+            <button class="btn btn-custom" id="loadBookingsBtn">Load All Bookings</button>
+            <button class="btn btn-custom" id="filterPendingBtn">Pending Bookings</button>
+            <button class="btn btn-custom" id="filterApprovedBtn">Approved Bookings</button>
+            <button class="btn btn-custom" id="filterRejectedBtn">Rejected Bookings</button>
+        </div>
+
+
+
+
+        <!-- No Bookings Message -->
+        <div id="noBookingsMessage" class="d-none text-center">
+            <p id="noBookingsText">You have no bookings</p>
+            <a href="facilities.html" class="btn btn-primary btn-custom">Book Now</a>
         </div>
 
         <!-- Bookings Table -->
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Facility Description</th>
-                    <th>Booking From</th>
-                    <th>Booking To</th>
-                    <th>Booked By</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="bookingsTableBody">
-                <!-- Rows will be inserted here via JavaScript -->
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="bookingsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Facility Description</th>
+                        <th>Booking From</th>
+                        <th>Booking To</th>
+                        <th>Booked By</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="bookingsTableBody">
+                    <!-- Rows will be inserted here via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
     </div>
+
+    <!-- Edit Booking Modal -->
+    <div class="modal fade" id="editBookingModal" tabindex="-1" aria-labelledby="editBookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editBookingModalLabel">Edit Booking</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateBookingForm">
+                        <input type="hidden" id="editBookingID">
+                        <div class="mb-3">
+                            <label for="editFacilityDescription" class="form-label">Facility Description</label>
+                            <select class="form-select" id="editFacilityDescription">
+                                <option value="Tennis Court">Tennis Court</option>
+                                <option value="Basketball Court">Basketball Court</option>
+                                <option value="Swimming Pool">Swimming Pool</option>
+                                <option value="Badminton Court">Badminton Court</option>
+                                <option value="Football Field">Football Field</option>
+                                <option value="Volleyball Court">Volleyball Court</option>
+                                <option value="Running Track">Running Track</option>
+                                <option value="Gymnasium">Gymnasium</option>
+                                <option value="Squash Court">Squash Court</option>
+                                <option value="Table Tennis">Table Tennis</option>
+                                <option value="Archery Range">Archery Range</option>
+                                <option value="Ice Skating Rink">Ice Skating Rink</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editBookingDateFrom" class="form-label">Booking From</label>
+                            <input type="date" class="form-control" id="editBookingDateFrom">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editBookingDateTo" class="form-label">Booking To</label>
+                            <input type="date" class="form-control" id="editBookingDateTo">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editBookedBy" class="form-label">Booked By</label>
+                            <input type="text" class="form-control" id="editBookedBy" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editBookingStatus" class="form-label">Status</label>
+                            <select class="form-select" id="editBookingStatus">
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateBookingBtn">Update Booking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Sports Facility Booking | All rights reserved</p>
+        <p>Email: <a href="mailto:support@sportsbooking.com">support@sportsbooking.com</a> | Phone: +65 1234 5678</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script>
         const apiBaseUrl = 'https://localhost:44304/api/bookings'; // Your API base URL
+        let currentFilter = 'all';  // Default filter set to 'all'
 
-        // On page load, check if user is logged in
-        document.addEventListener("DOMContentLoaded", function () {
-            const jwtToken = localStorage.getItem("jwtToken");
-            if (!jwtToken) {
-                // If not logged in, redirect to login page
-                window.location.href = "login.html";
-            } else {
-                // If logged in, load bookings and allow CRUD operations
-                loadBookings("all");
-            }
+        // JS to handle button selection
+        const filterButtons = document.querySelectorAll('.btn-custom');
+
+        // Set "Load All Bookings" as selected by default
+        const loadBookingsBtn = document.getElementById('loadBookingsBtn');
+        loadBookingsBtn.classList.add('selected');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove 'selected' class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('selected'));
+
+                // Add 'selected' class to the clicked button
+                button.classList.add('selected');
+            });
         });
 
 
-        document.getElementById("loadBookingsBtn").addEventListener("click", () => loadBookings('all'));
-        document.getElementById("filterPendingBtn").addEventListener("click", () => loadBookings('pending'));
-        document.getElementById("filterApprovedBtn").addEventListener("click", () => loadBookings('approved'));
-        document.getElementById("filterRejectedBtn").addEventListener("click", () => loadBookings('rejected'));
+        function checkLoginStatus() {
+            const jwtToken = localStorage.getItem('jwtToken'); // Check if there's a token
+            const navbarLinks = document.getElementById('navbar-links');
 
-        // Function to get role from the JWT token
-        function getUserRole() {
-            const jwtToken = localStorage.getItem("jwtToken");
             if (jwtToken) {
-                const payload = JSON.parse(atob(jwtToken.split('.')[1])); // Decode JWT token
-                return payload.role;  // Assuming the token contains 'role'
+                // Change Login link to Logout
+                const loginLink = navbarLinks.querySelector('.nav-item:nth-child(4)');
+                loginLink.innerHTML = '<a class="nav-link" href="#" onclick="logout()">Logout</a>';
             }
-            return null;
         }
 
-        // After loading the bookings, show CRUD operations based on role
+        // Logout function
+        function logout() {
+            localStorage.removeItem('jwtToken'); // Remove the JWT token
+            window.location.href = 'index.html'; // Redirect to homepage after logout
+        }
+
+        // Run the checkLoginStatus function when the page loads
+        window.onload = checkLoginStatus;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const jwtToken = localStorage.getItem("jwtToken");
+            if (!jwtToken) {
+                window.location.href = "login.html";
+            } else {
+                loadBookings(currentFilter);
+            }
+
+            // Add event listeners to filter buttons
+            document.getElementById("filterPendingBtn").addEventListener("click", function () {
+                currentFilter = 'pending';  // Set the filter to 'pending'
+                loadBookings(currentFilter); // Reload bookings with the pending filter
+            });
+
+            document.getElementById("filterApprovedBtn").addEventListener("click", function () {
+                currentFilter = 'approved';  // Set the filter to 'approved'
+                loadBookings(currentFilter); // Reload bookings with the approved filter
+            });
+
+            document.getElementById("filterRejectedBtn").addEventListener("click", function () {
+                currentFilter = 'rejected';  // Set the filter to 'rejected'
+                loadBookings(currentFilter); // Reload bookings with the rejected filter
+            });
+
+            document.getElementById("loadBookingsBtn").addEventListener("click", function () {
+                currentFilter = 'all';  // Reset to 'all'
+                loadBookings(currentFilter); // Reload all bookings
+            });
+        });
+
+        // Global variables for user role and username (defined once at the top)
+        let userName = "";
+        let role = "";
+
+        // Decode the JWT token and extract user data
+        function decodeJWT() {
+            const jwtToken = localStorage.getItem('jwtToken');
+            if (jwtToken) {
+                // Decode the JWT manually
+                const base64Url = jwtToken.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = JSON.parse(atob(base64));  // Decode JWT payload
+
+                console.log("Decoded JWT Payload:", jsonPayload);  // Log payload
+
+                // Extract the username and role from the token
+                userName = jsonPayload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];  // Correct username key
+                role = jsonPayload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];  // Correct role key
+
+                console.log("Username from JWT:", userName);  // Print username
+                console.log("Role from JWT:", role);  // Print role
+            } else {
+                console.log("JWT token not found in localStorage.");
+            }
+
+        }
+
+        // Load bookings based on status filter
         function loadBookings(status) {
-            const role = getUserRole(); // Get the user's role
+            decodeJWT();  // Ensure JWT is decoded and we have user details
+
+            const jwtToken = localStorage.getItem("jwtToken");
+            if (!jwtToken) {
+                console.log("JWT token not found. Redirecting to login...");
+                window.location.href = "login.html"; // Redirect if no JWT token
+                return;
+            }
+
             fetch(`${apiBaseUrl}/GetByStatus/${status}`, {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` // Add token from localStorage
+                    'Authorization': `Bearer ${jwtToken}`
                 }
             })
                 .then(response => response.json())
                 .then(data => {
                     const tableBody = document.getElementById("bookingsTableBody");
-                    tableBody.innerHTML = ''; // Clear the table
-                    data.forEach(booking => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                    <td>${booking.bookingID}</td>
-                    <td>${booking.facilityDescription}</td>
-                    <td>${booking.bookingDateFrom}</td>
-                    <td>${booking.bookingDateTo}</td>
-                    <td>${booking.bookedBy}</td>
-                    <td>${booking.bookingStatus}</td>
-                `;
+                    const bookingsTable = document.getElementById("bookingsTable");
+                    const noBookingsMessage = document.getElementById("noBookingsMessage");
+                    const noBookingsText = document.getElementById("noBookingsText");
 
-                        // If user is an admin, show Edit/Delete buttons
-                        if (role === "Admin") {
-                            row.innerHTML += `
-                        <td>
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    `;
+                    if (data.length === 0) {
+                        bookingsTable.style.display = 'none';
+                        noBookingsMessage.classList.remove('d-none');
+
+                        // Update the message based on the current filter
+                        if (status === 'pending') {
+                            noBookingsText.textContent = "You have no pending bookings";
+                        } else if (status === 'approved') {
+                            noBookingsText.textContent = "You have no approved bookings";
+                        } else if (status === 'rejected') {
+                            noBookingsText.textContent = "You have no rejected bookings";
+                        } else {
+                            noBookingsText.textContent = "You have no bookings"; // For 'all' status
                         }
-                        tableBody.appendChild(row);
-                    });
+                    } else {
+                        bookingsTable.style.display = 'table';
+                        noBookingsMessage.classList.add('d-none');
+
+                        tableBody.innerHTML = ''; // Clear the table
+                        data.forEach(booking => {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                                                        <td>${booking.bookingID}</td>
+                                                                        <td>${booking.facilityDescription}</td>
+                                                                        <td>${booking.bookingDateFrom}</td>
+                                                                        <td>${booking.bookingDateTo}</td>
+                                                                        <td>${booking.bookedBy}</td>
+                                                                        <td>${booking.bookingStatus}</td>
+                                                                    `;
+
+                            // Add edit/delete buttons based on user role
+                            if (role === "Administrator" || role === "Member") {
+                                row.innerHTML += `
+                                                                            <td>
+                                                                                <button class="btn btn-warning btn-sm" onclick="editBooking(${booking.bookingID})">Edit</button>
+                                                                                <button class="btn btn-danger btn-sm" onclick="deleteBooking(${booking.bookingID})">Delete</button>
+                                                                            </td>
+                                                                        `;
+                            } else {
+                                row.innerHTML += `<td></td>`;
+                            }
+
+                            tableBody.appendChild(row);
+                        });
+                    }
                 })
                 .catch(error => console.error('Error loading bookings:', error));
         }
 
+        // Call loadBookings initially or based on your page setup
+        loadBookings('all');
+
+
+
+
+
+
+
+        // Fetch the user's name from the JWT token
+        function getUserName() {
+            const jwtToken = localStorage.getItem("jwtToken");
+            if (jwtToken) {
+                try {
+                    const payload = JSON.parse(atob(jwtToken.split('.')[1]));
+                    return payload["unique_name"] || null;  // You may need to adjust this depending on your token structure
+                } catch (error) {
+                    console.error("Error decoding JWT:", error);
+                    return null;
+                }
+            }
+            return null;
+        }
+
+
+        // Fetch the user role from the JWT token
+        function getUserRole() {
+            const jwtToken = localStorage.getItem("jwtToken");
+            if (jwtToken) {
+                try {
+                    const payload = JSON.parse(atob(jwtToken.split('.')[1]));
+                    return payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] || null;
+                } catch (error) {
+                    console.error("Error decoding JWT:", error);
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        function editBooking(bookingID) {
+            console.log("Edit booking with ID:", bookingID);
+
+            // Fetch the booking details by ID
+            fetch(`${apiBaseUrl}/GetById/${bookingID}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+                }
+            })
+                .then(response => response.json())
+                .then(booking => {
+                    // Populate the modal with the fetched booking data
+                    document.getElementById("editBookingID").value = booking.bookingID;
+                    const facilityDescriptionSelect = document.getElementById("editFacilityDescription");
+                    facilityDescriptionSelect.value = booking.facilityDescription;  // Set the correct option
+                    document.getElementById("editBookingDateFrom").value = booking.bookingDateFrom;
+                    document.getElementById("editBookingDateTo").value = booking.bookingDateTo;
+                    document.getElementById("editBookingStatus").value = booking.bookingStatus;
+
+                    // Conditionally disable the "BookingStatus" select and "Save Changes" button for non-Admins
+                    const bookingStatusSelect = document.getElementById("editBookingStatus");
+           
+                    if (role !== "Administrator") {
+                        bookingStatusSelect.disabled = true; // Disable the status select
+                    } else {
+                        bookingStatusSelect.disabled = false; // Enable the status select
+                    }
+
+                    // Set the 'bookedBy' value and make it read-only
+                    document.getElementById("editBookedBy").value = booking.bookedBy || ''; // Set the value of 'bookedBy'
+
+                    // Show the modal for editing using Bootstrap 5's native method
+                    const editBookingModal = new bootstrap.Modal(document.getElementById('editBookingModal'));
+                    editBookingModal.show();
+                })
+                .catch(error => console.error("Error fetching booking details:", error));
+        }
+
+        const updateButton = document.getElementById("updateBookingBtn");
+        console.log(updateButton);  // Should log the button element if found
+
+        // Attach click event to the button
+        updateButton.addEventListener("click", function (event) {
+            console.log("Update button clicked");
+
+            // Prevent form submission if the button is inside a form
+            event.preventDefault();
+
+            // Get the updated values from the form
+            const bookingID = document.getElementById("editBookingID").value;
+            const updatedBooking = {
+                bookingID: bookingID,
+                facilityDescription: document.getElementById("editFacilityDescription").value,
+                bookingDateFrom: document.getElementById("editBookingDateFrom").value,
+                bookingDateTo: document.getElementById("editBookingDateTo").value,
+                bookingStatus: document.getElementById("editBookingStatus").value,
+                bookedBy: document.getElementById("editBookedBy").value // Include the bookedBy value in the update
+            };
+
+            // Send PUT request to update the booking
+            fetch(`${apiBaseUrl}/Put/${bookingID}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedBooking)
+            })
+                .then(response => response.json())
+                .then(updatedBooking => {
+                    console.log("Booking updated successfully:", updatedBooking);
+
+                    // Get the modal instance using bootstrap.Modal.getInstance
+                    const editBookingModal = bootstrap.Modal.getInstance(document.getElementById('editBookingModal'));
+
+                    // Close the modal
+                    if (editBookingModal) {
+                        console.log('Closing modal...');
+                        editBookingModal.hide(); // Close the modal
+                    } else {
+                        console.error('Modal instance not found!');
+                        // Fallback to jQuery if Bootstrap Modal is not working as expected
+                        $('#editBookingModal').modal('hide');
+                    }
+
+                    // Reload the bookings table with the updated data
+                    loadBookings(currentFilter);
+                })
+                .catch(error => console.error('Error updating booking:', error));
+        });
+
+
+        // Delete booking function
+        function deleteBooking(bookingID) {
+            fetch(`${apiBaseUrl}/Delete/${bookingID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        loadBookings(currentFilter); // Reload the bookings after deletion
+                    } else {
+                        console.error("Failed to delete booking");
+                    }
+                })
+                .catch(error => console.error('Error deleting booking:', error));
+        }
     </script>
 </body>
 </html>
