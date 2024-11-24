@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ammar_Project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6f8987e56f611af656db4c1f60e4d61c762882f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b8107c89d203c9d0b7125907932b106c8be16744")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ammar_Project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ammar_Project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
